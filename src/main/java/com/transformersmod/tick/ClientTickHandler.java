@@ -66,7 +66,7 @@ public class ClientTickHandler
 				{
 					gameSettings.thirdPersonView = 2;
 				}
-				else if (ClientProxy.keyBindingVehicleFirstPerson.isPressed())
+				else if (ClientProxy.keyBindingVehicleFirstPerson.isKeyDown())
 				{
 					gameSettings.thirdPersonView = 0;
 				}
@@ -90,7 +90,7 @@ public class ClientTickHandler
 				if (transformer.hasJetpack())
 				{
 					boolean isClientPlayer = mc.thePlayer == player;
-					boolean jetpacking = mc.gameSettings.keyBindJump.isPressed();
+					boolean jetpacking = mc.gameSettings.keyBindJump.isKeyDown();
 
 					if (isClientPlayer)
 					{

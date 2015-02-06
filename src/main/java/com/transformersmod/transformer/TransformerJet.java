@@ -47,8 +47,8 @@ public abstract class TransformerJet extends Transformer
 	{
 		Minecraft minecraft = Minecraft.getMinecraft();
 		
-		boolean moveForward = minecraft.gameSettings.keyBindForward.isPressed();
-		boolean nitroPressed = ClientProxy.keyBindingNitro.isPressed() || minecraft.gameSettings.keyBindSprint.isPressed();
+		boolean moveForward = minecraft.gameSettings.keyBindForward.isKeyDown();
+		boolean nitroPressed = ClientProxy.keyBindingNitro.isKeyDown() || minecraft.gameSettings.keyBindSprint.isKeyDown();
 		
 		VehicleMotion motion = TFMotionManager.getTransformerPlayer(player);
 		

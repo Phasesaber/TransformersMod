@@ -42,8 +42,8 @@ public abstract class TransformerTank extends Transformer
 	public void updateMovement(EntityPlayer player)
 	{
 		Minecraft minecraft = Minecraft.getMinecraft();
-		boolean moveForward = minecraft.gameSettings.keyBindForward.isPressed();
-		boolean nitroPressed = ClientProxy.keyBindingNitro.isPressed() || minecraft.gameSettings.keyBindSprint.isPressed();
+		boolean moveForward = minecraft.gameSettings.keyBindForward.isKeyDown();
+		boolean nitroPressed = ClientProxy.keyBindingNitro.isKeyDown() || minecraft.gameSettings.keyBindSprint.isKeyDown();
 
 		player.stepHeight = 1.0F;
 		VehicleMotion transformedPlayer = TFMotionManager.getTransformerPlayer(player);

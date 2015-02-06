@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-@Mod(modid = TransformersMod.modid, name = "Transformers Mod", version = TransformersMod.version, guiFactory = "TFGuiFactory")
+@Mod(modid = TransformersMod.modid, name = "Transformers Mod", version = TransformersMod.version, guiFactory = "com.transformersmod.gui.TFGuiFactory")
 public class TransformersMod
 {
 	@Mod.Instance(TransformersMod.modid)
@@ -73,7 +73,7 @@ public class TransformersMod
 		
 		items.load();
 		blocks.load();
-		
+
 		TFAchievements.register();
 		
 		TFRecipes.registerRecipes();

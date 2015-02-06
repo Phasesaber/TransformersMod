@@ -54,10 +54,10 @@ public abstract class TransformerCar extends Transformer
 		Minecraft mc = Minecraft.getMinecraft();
 
 		boolean inStealthMode = TFDataManager.isInStealthMode(player);
-		boolean moveForward = mc.gameSettings.keyBindForward.isPressed();
+		boolean moveForward = mc.gameSettings.keyBindForward.isKeyDown();
 		boolean moveSide = player.moveStrafing != 0;
-		boolean nitroPressed = ClientProxy.keyBindingNitro.isPressed() || mc.gameSettings.keyBindSprint.isPressed();
-		boolean driftPressed = ClientProxy.keyBindingBrake.isPressed();
+		boolean nitroPressed = ClientProxy.keyBindingNitro.isKeyDown() || mc.gameSettings.keyBindSprint.isKeyDown();
+		boolean driftPressed = ClientProxy.keyBindingBrake.isKeyDown();
         int nitro = 0;
 		double forwardVelocity = 0;
 		double horizontalVelocity = 0;

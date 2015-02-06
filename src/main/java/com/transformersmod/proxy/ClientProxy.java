@@ -1,10 +1,32 @@
 package com.transformersmod.proxy;
 
+import java.lang.reflect.Field;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.RendererLivingEntity;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+
+import org.lwjgl.input.Keyboard;
+
 import com.transformersmod.entity.EntityMissile;
 import com.transformersmod.entity.EntityTankShell;
 import com.transformersmod.item.TFItems;
 import com.transformersmod.model.player.ModelBipedTF;
-import com.transformersmod.model.transformer.*;
+import com.transformersmod.model.transformer.ModelChildBase;
+import com.transformersmod.model.transformer.ModelCloudtrap;
+import com.transformersmod.model.transformer.ModelPurge;
+import com.transformersmod.model.transformer.ModelSkystrike;
+import com.transformersmod.model.transformer.ModelSubwoofer;
+import com.transformersmod.model.transformer.ModelVurp;
 import com.transformersmod.render.entity.RenderCustomPlayer;
 import com.transformersmod.render.entity.RenderMissile;
 import com.transformersmod.render.entity.RenderTankShell;
@@ -17,19 +39,6 @@ import com.transformersmod.render.tileentity.RenderDisplayPillar;
 import com.transformersmod.tick.ClientTickHandler;
 import com.transformersmod.tileentity.TileEntityCrystal;
 import com.transformersmod.tileentity.TileEntityDisplayPillar;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import org.lwjgl.input.Keyboard;
-
-import java.lang.reflect.Field;
 
 public class ClientProxy extends CommonProxy
 {
@@ -77,27 +86,19 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenderInformation()
 	{
-        RenderCustomPlayer renderCustomPlayer = new RenderCustomPlayer();
-        Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(EntityPlayer.class, renderCustomPlayer);
+		Field mainModelField = null;
+		Field modelBipedMainField = null;
+		
+		int i = 0;
 
-        RenderPlayer playerRenderer = (RenderPlayer)Minecraft.getMinecraft().getRenderManager().getEntityClassRenderObject(EntityPlayer.class);
-        ModelBipedTF newModel = new ModelBipedTF(0.0F);
-
-        try
-        {
-            RenderPlayer.class.getField("mainModel").setAccessible(true);
-            RendererLivingEntity.class.getField("mainModel").set(playerRenderer, newModel);
-        }
-        catch (NoSuchFieldException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        }
-
-        int i = 0;
+		RenderCustomPlayer renderCustomPlayer = new RenderCustomPlayer();
+		RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+		renderManager.entityRenderMap.put(EntityPlayer.class, renderCustomPlayer);
+		
+		ModelBipedTF newModel = new ModelBipedTF(0.0F);
+		renderCustomPlayer.setModel(newModel);
+		
+		i = 0;
 		for (Field curField : EntityRenderer.class.getDeclaredFields())
 		{
 			if (curField.getType() == float.class)
@@ -114,7 +115,6 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissile.class, new RenderMissile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDisplayPillar.class, new RenderDisplayPillar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrystal.class, new RenderCrystal());
-		
 		
 		MinecraftForgeClient.registerItemRenderer(TFItems.purgesKatana, new RenderItemPurgesKatana());
 		MinecraftForgeClient.registerItemRenderer(TFItems.skystrikesCrossbow, new RenderItemSkystrikesCrossbow());

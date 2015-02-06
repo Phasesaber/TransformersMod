@@ -104,6 +104,7 @@ public class ModelBipedTF extends ModelBiped
 				{
 					this.bipedHeadwear.render(p_78088_7_);
 				}
+				
 				GL11.glPopMatrix();
 			}
 			else
