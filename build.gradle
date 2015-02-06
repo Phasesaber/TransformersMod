@@ -17,13 +17,14 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.5.0"
-group = "fiskfille.tf"
+version = "0.6.0"
+group = "com.transformersmod"
 archivesBaseName = "TransformersMod"
 
 minecraft {
-    version = "1.7.10-10.13.2.1291"
+    version = "1.8-11.14.1.1303"
     runDir = "minecraft"
+    mappings = "snapshot_nodoc_20141130"
 	replace '${version}', project.version
 }
 
@@ -33,6 +34,7 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
+        include 'version.json'
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
