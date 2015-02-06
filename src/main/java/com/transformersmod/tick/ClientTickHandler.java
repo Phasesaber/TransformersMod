@@ -137,7 +137,7 @@ public class ClientTickHandler
 		}
 
 		int nitro = transformedPlayer == null ? 0 : transformedPlayer.getNitro();
-		boolean moveForward = Minecraft.getMinecraft().gameSettings.keyBindForward.isPressed();
+		boolean moveForward = Minecraft.getMinecraft().gameSettings.keyBindForward.isKeyDown();
 		boolean nitroPressed = ClientProxy.keyBindingNitro.isPressed() || Minecraft.getMinecraft().gameSettings.keyBindSprint.isPressed();
 
 		if (nitro < 160 && !((nitroPressed && !TFDataManager.isInStealthMode(player)) && moveForward && inVehicleMode && transformationTimer < 10))
@@ -216,7 +216,7 @@ public class ClientTickHandler
 
 			float thirdPersonDistance;
 
-			if (transformer != null && (transformer.canZoom(player)) && TFDataManager.isInVehicleMode(player) && ClientProxy.keyBindingZoom.isPressed())
+			if (transformer != null && (transformer.canZoom(player)) && TFDataManager.isInVehicleMode(player) && ClientProxy.keyBindingZoom.isKeyDown())
 			{
 				thirdPersonDistance = transformer.getZoomAmount(player);
 			}
