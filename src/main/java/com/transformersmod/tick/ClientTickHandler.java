@@ -138,7 +138,7 @@ public class ClientTickHandler
 
 		int nitro = transformedPlayer == null ? 0 : transformedPlayer.getNitro();
 		boolean moveForward = Minecraft.getMinecraft().gameSettings.keyBindForward.isKeyDown();
-		boolean nitroPressed = ClientProxy.keyBindingNitro.isPressed() || Minecraft.getMinecraft().gameSettings.keyBindSprint.isPressed();
+		boolean nitroPressed = ClientProxy.keyBindingNitro.isKeyDown() || Minecraft.getMinecraft().gameSettings.keyBindSprint.isKeyDown();
 
 		if (nitro < 160 && !((nitroPressed && !TFDataManager.isInStealthMode(player)) && moveForward && inVehicleMode && transformationTimer < 10))
 		{
